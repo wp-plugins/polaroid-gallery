@@ -5,7 +5,7 @@
 	src: local('GoodDog'), local('GoodDog'), url('../fonts/GoodDog.woff') format('woff'), url('../fonts/GoodDog.ttf') format('truetype'), url('../fonts/GoodDog.svg#GoodDog') format('svg');
 }
 
-.gallery {
+.polaroid-gallery {
 	clear: both;
 	position: relative;
 	width: 100% !important;
@@ -14,7 +14,7 @@
 	visibility: hidden;
 }
 
-.gallery a {
+.polaroid-gallery a.polaroid-gallery-item {
 	position: relative;
 	display: block !important;
 	float: left !important;
@@ -28,14 +28,14 @@
     -moz-border-radius: 3px;
   	-webkit-border-radius: 3px;
 }
-.gallery a img {
+.polaroid-gallery a.polaroid-gallery-item img {
 	position: relative;
 	display: block !important;
 	margin: 0 0 5px 0 !important;
 	padding: 0 !important;
 	border: 0 !important;
 }
-.gallery a span {
+.polaroid-gallery a.polaroid-gallery-item span {
 	position: relative;
 	display: block !important;
 	font-size: 22px !important;
@@ -47,7 +47,7 @@
 	overflow: hidden;
 	visibility: hidden;
 }
-.gallery a:hover span {
+.polaroid-gallery a.polaroid-gallery-item:hover span {
 	visibility: visible !important;
 	height: auto !important;
 }

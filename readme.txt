@@ -4,7 +4,7 @@ Donate link: http://www.mikkonen.info
 Tags: image, images, gallery, media, library, photo, photos, picture, pictures, polaroid, lightbox, fancybox, jquery
 Requires at least: 2.8
 Tested up to: 2.9.2
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 
 Polaroid Gallery is a CSS3 & jQuery Image Gallery plugin for WordPress Media Library.
 
@@ -12,9 +12,9 @@ Polaroid Gallery is a CSS3 & jQuery Image Gallery plugin for WordPress Media Lib
 
 Polaroid Gallery is a CSS3 & jQuery Image Gallery plugin for WordPress Media Library. It is used to overlay images as polaroid pictures on the current page or post and uses WordPress Media Library.
 
-Use Regenerate Thumbnails plugin to regenerate thumbnails for all images that you have uploaded to your blog. See: http://wordpress.org/extend/plugins/regenerate-thumbnails/
+Use [Regenerate Thumbnails](http://wordpress.org/extend/plugins/regenerate-thumbnails/) plugin to regenerate thumbnails for all images that you have uploaded to your blog. 
 
-WordPress Gallery support: http://en.support.wordpress.com/images/gallery/
+[WordPress Gallery support](http://en.support.wordpress.com/images/gallery/)
 
 == Installation ==
 
@@ -34,15 +34,21 @@ Some other gallery plugin might be causing a conflict with Polaroid Gallery
 
 == Changelog ==
 
+= 1.1.0 =
+* Added localization support.
+* Added admin menu. You can now choose between Medium, Large or Full size images for fullscreen overlay.
+* Fixed: Post content was filtered too much.
+
 = 1.0.0 =
 * First public version.
 
 == Screenshots ==
 
-1. Change your thumbnail size and optionally use Regenerate Thumbnails plugin to regenerate all thumbnails.
-2. Click "Add an Image" in post or page and upload your pictures.
-3. Edit title and caption, set "Alignment" to "None" and then click "Save all changes".
-4. Set "Link thumbnails to" to "Image file", choose your order and Gallery columns and then click "Insert gallery".
-5. Edit page.
-6. Post page.
-7. Fullscreen image.
+1. You can now choose between Medium, Large or Full size images for fullscreen overlay.
+2. Change your thumbnail size and optionally use Regenerate Thumbnails plugin to regenerate all thumbnails.
+3. Click "Add an Image" in post or page and upload your pictures.
+4. Edit title and caption, set "Alignment" to "None" and then click "Save all changes".
+5. Set "Link thumbnails to" to "Image file", choose your order and Gallery columns and then click "Insert gallery".
+6. Edit page.
+7. Post page.
+8. Fullscreen image.

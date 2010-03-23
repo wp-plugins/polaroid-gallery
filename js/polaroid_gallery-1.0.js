@@ -23,9 +23,10 @@ jQuery.extend({
 function init(name) {
 	var $ = name,
 		zIndex = 1000,
-		imageCount = 0;
+		imageCount = 0,
+		imageStr = (typeof(polaroid_gallery_image_str) !== 'undefined' ) ? polaroid_gallery_image_str : 'Image';
 		
-	$("a.polaroid_gallery").each(function() {
+	$(".polaroid-gallery a.polaroid-gallery-item").each(function() {
 		zIndex++;
 		imageCount++;
 		var width = $(this).width(),
@@ -68,16 +69,16 @@ function init(name) {
 		});			
 	});
 	
-	$(".gallery").css('visibility', 'visible');
+	$(".polaroid-gallery").css('visibility', 'visible');
 	
-	$("a.polaroid_gallery").fancybox({
+	$(".polaroid-gallery a.polaroid-gallery-item").fancybox({
 		'padding'			: 20,
 		'margin'			: 40,
 		'transitionIn'		: 'elastic',
 		'transitionOut'		: 'elastic',
 		'titlePosition'		: 'inside',
 		'titleFormat'		: function(title, currentArray, currentIndex, currentOpts) {
-			return '<span id="fancybox-title-over">Image ' + (currentIndex + 1) + ' / ' + currentArray.length + (title.length ? ' &nbsp; ' + title : '') + '</span>';
+			return '<span id="fancybox-title-over">' + imageStr + ' ' + (currentIndex + 1) + ' / ' + currentArray.length + (title.length ? ' &nbsp; ' + title : '') + '</span>';
 		}
 	});
 }
