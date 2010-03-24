@@ -21,12 +21,12 @@
 	padding: 10px 10px 10px 10px !important;
 	margin: 0 !important;
 	border: 1px solid #fff !important;
-	background: #eee;
-	text-decoration: none;
+	background: #eee !important;
+	text-decoration: none !important;
 	color: #000;
 	border-radius: 3px;
-    -moz-border-radius: 3px;
-  	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
 }
 .polaroid-gallery a.polaroid-gallery-item img {
 	position: relative;
