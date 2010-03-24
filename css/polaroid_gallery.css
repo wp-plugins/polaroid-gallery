@@ -25,8 +25,8 @@
 	text-decoration: none !important;
 	color: #000;
 	border-radius: 3px;
-    -moz-border-radius: 3px;
-  	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
 }
 .polaroid-gallery a.polaroid-gallery-item img {
 	position: relative;
