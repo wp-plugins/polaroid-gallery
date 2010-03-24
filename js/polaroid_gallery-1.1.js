@@ -35,7 +35,7 @@ function init(name) {
 			randDeg = 'rotate(' + randNum + 'deg)',
 			ieFilter = $.ieRotateFilter(randNum);
 		
-		text = (text == '') ? 'Image ' + imageCount : text;	
+		text = (text == '') ? imageStr +' '+ imageCount : text;	
 		
 		var cssObj = {
 			'z-index' : zIndex,

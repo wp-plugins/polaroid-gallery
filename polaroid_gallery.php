@@ -2,38 +2,39 @@
 /*
 Plugin Name: Polaroid Gallery
 Plugin URI: http://www.mikkonen.info/polaroid_gallery/
-Description: Used to overlay images as polaroid pictures on the current page or post and uses WordPress Media Library
-Version: 1.1.0
+Description: Used to overlay images as polaroid pictures on the current page or post and uses WordPress Media Library.
+Version: 1.1.1
 Author: Jani Mikkonen
 Author URI: http://www.mikkonen.info
 */
 
 /** admin code **/
 
-add_action('admin_init', 'polaroid_gallery_options_init' );
+add_action('admin_init', 'polaroid_gallery_options_init');
 add_action('admin_menu', 'polaroid_gallery_options_add_page');
 
-function polaroid_gallery_options_init(){
+function polaroid_gallery_options_init() {
 	register_setting('polaroid_gallery_options', 'image_size');
 }
 
 function polaroid_gallery_options_add_page() {
-	add_options_page('Polaroid Gallery', 'Polaroid Gallery', 'manage_options', 'polaroid_gallery_options', 'polaroid_gallery_options_do_page');
+	add_options_page('Polaroid Gallery Options', 'Polaroid Gallery', 'manage_options', 'polaroid_gallery_options', 'polaroid_gallery_options_do_page');
 }
 
 function polaroid_gallery_options_do_page() {
 	?>
 	<div class="wrap">
+		<?php screen_icon(); ?>
 		<h2><?php _e('Polaroid Gallery Options') ?></h2>
 		<form method="post" action="options.php">
 			<?php settings_fields('polaroid_gallery_options'); ?>
 			<?php $image_size = get_option('image_size', 'large'); ?>
-			<h3><?php _e('Media Gallery Settings'); ?></h3>
+			<h3><?php _e('Gallery Settings'); ?></h3>
 			<p><?php _e('Choose the image size to display when user clicks the thumbnail. Images will be scaled to fit the screen if they are too large.'); ?></p>
 			<p><?php _e('You can adjust the image sizes via Settings -> Media.'); ?></p>
 			<table class="form-table">
 			<tr>
-				<th scope="row"><?php _e('Image size') ?></th>
+				<th scope="row"><?php _e('Image sizes') ?></th>
 				<td>
 					<fieldset>
 						<legend class="screen-reader-text"><span><?php _e('Size') ?></span></legend>
@@ -63,7 +64,7 @@ if (!is_admin()) {
 	wp_enqueue_script('jquery.easing-1.3', ($polaroid_gallery_plugin_prefix.'js/jquery.easing-1.3.pack.js'));
 	wp_enqueue_script('jquery.mousewheel-3.0.2', ($polaroid_gallery_plugin_prefix.'js/jquery.mousewheel-3.0.2.pack.js'));
 	wp_enqueue_script('jquery.fancybox-1.3.1', ($polaroid_gallery_plugin_prefix.'js/jquery.fancybox-1.3.1.pack.js'));
-	wp_enqueue_script('polaroid_gallery-1.0', ($polaroid_gallery_plugin_prefix.'js/polaroid_gallery-1.0.js'));
+	wp_enqueue_script('polaroid_gallery-1.1', ($polaroid_gallery_plugin_prefix.'js/polaroid_gallery-1.1.js'));
 	// add css to head
 	wp_enqueue_style('polaroid_gallery_fancybox', ($polaroid_gallery_plugin_prefix . 'css/jquery.fancybox-1.3.1.css'));
 	wp_enqueue_style('polaroid_gallery_style', ($polaroid_gallery_plugin_prefix . 'css/polaroid_gallery.css'));
@@ -166,6 +167,6 @@ function polaroid_gallery_head() {
 }
 
 add_action('wp_head', 'polaroid_gallery_head');
-add_filter('post_gallery', 'polaroid_gallery_shortcode', 10, 2 );
+add_filter('post_gallery', 'polaroid_gallery_shortcode', 10, 2);
 
 ?>
