@@ -1,6 +1,6 @@
 === Polaroid Gallery ===
 Contributors: janisto
-Donate link: http://www.mikkonen.info
+Donate link: http://www.mikkonen.info/donate/
 Tags: image, images, gallery, media, library, photo, photos, picture, pictures, polaroid, lightbox, fancybox, jquery
 Requires at least: 2.8
 Tested up to: 2.9.2
