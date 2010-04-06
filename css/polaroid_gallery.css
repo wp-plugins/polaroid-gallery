@@ -4,16 +4,13 @@
 	src: url('../fonts/GoodDog.eot');
 	src: local('GoodDog'), local('GoodDog'), url('../fonts/GoodDog.woff') format('woff'), url('../fonts/GoodDog.ttf') format('truetype'), url('../fonts/GoodDog.svg#GoodDog') format('svg');
 }
-
 .polaroid-gallery {
 	clear: both;
 	position: relative;
-	width: 100% !important;
 	margin: 40px 40px !important;
 	padding: 0 !important;
 	visibility: hidden;
 }
-
 .polaroid-gallery a.polaroid-gallery-item {
 	position: relative;
 	display: block !important;

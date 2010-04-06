@@ -3,7 +3,7 @@
 Plugin Name: Polaroid Gallery
 Plugin URI: http://www.mikkonen.info/polaroid_gallery/
 Description: Used to overlay images as polaroid pictures on the current page or post and uses WordPress Media Library.
-Version: 1.1.1
+Version: 1.1.2
 Author: Jani Mikkonen
 Author URI: http://www.mikkonen.info
 */
@@ -157,12 +157,16 @@ function polaroid_gallery_shortcode($output, $attr) {
 }
 
 function polaroid_gallery_head() {
+	global $polaroid_gallery_plugin_prefix;
 	$polaroid_gallery_script = "
 	<script type=\"text/javascript\">
 	//<![CDATA[
 	var polaroid_gallery_image_str = '". __('Image') ."';
 	//]]>
-	</script>\n";
+	</script>
+	<!--[if lt IE 8]>
+		<link rel=\"stylesheet\" type=\"text/css\" href=\"". $polaroid_gallery_plugin_prefix ."css/jquery.fancybox-old-ie.css\" />
+	<![endif]-->\n";
 	print $polaroid_gallery_script;
 }
 

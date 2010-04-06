@@ -20,8 +20,8 @@ jQuery.extend({
 	}
 });
 
-function init(name) {
-	var $ = name,
+function init() {
+	var $ = jQuery.noConflict(),
 		zIndex = 1000,
 		imageCount = 0,
 		imageStr = (typeof(polaroid_gallery_image_str) !== 'undefined' ) ? polaroid_gallery_image_str : 'Image';
@@ -85,11 +85,11 @@ function init(name) {
 
 // For Safari due to Safari is unable to get width and height of image/element
 if(jQuery.browser.webkit) {
-	jQuery(window).load(function($) {
-		init($);
+	jQuery(window).load(function() {
+		init();
 	});
 } else {
-	jQuery(document).ready(function($) {
-		init($);
+	jQuery(document).ready(function() {
+		init();
 	});
 }
