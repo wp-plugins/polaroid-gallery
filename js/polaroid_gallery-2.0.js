@@ -23,20 +23,40 @@ jQuery.extend({
 function init() {
 	var $ = jQuery.noConflict(),
 		zIndex = 1000,
-		imageCount = 0,
-		imageStr = (typeof(polaroid_gallery_image_str) !== 'undefined' ) ? polaroid_gallery_image_str : 'Image';
-		
-	$(".polaroid-gallery a.polaroid-gallery-item").each(function() {
+		imagesCount = $('.polaroid-gallery a.polaroid-gallery-item').size(),
+		imageStr = (typeof(polaroid_gallery) !== 'undefined' ) ? polaroid_gallery.text2image : 'Image',
+		thumbsOption = (typeof(polaroid_gallery) !== 'undefined' ) ? polaroid_gallery.thumbnail : 'none',
+		imagesOption = (typeof(polaroid_gallery) !== 'undefined' ) ? polaroid_gallery.image : 'title3';
+	
+	$(".polaroid-gallery a.polaroid-gallery-item").each(function(currentIndex) {
 		zIndex++;
-		imageCount++;
 		var width = $(this).width(),
 			text = jQuery.trim($("img", this).attr('alt')),
 			randNum = $.randomBetween(-12, 12),
 			randDeg = 'rotate(' + randNum + 'deg)',
 			ieFilter = $.ieRotateFilter(randNum);
 		
-		text = (text == '') ? imageStr +' '+ imageCount : text;	
+		switch (thumbsOption) {
+			case 'none':
+				text = '';
+				break;
+			case 'image1':
+				text = imageStr +'&nbsp; '+ (currentIndex + 1);
+				break;
+			case 'image2':
+				text = imageStr +'&nbsp; '+ (currentIndex + 1) +' / '+ imagesCount;
+				break;
+			case 'number1':
+				text = (currentIndex + 1);
+				break;
+			case 'number2':
+				text = (currentIndex + 1) +' / '+ imagesCount;
+				break;
+		}
 		
+		if(text == '') {
+			text = 	'&nbsp;';
+		}
 		var cssObj = {
 			'z-index' : zIndex,
 			'box-shadow' : '0px 2px 15px #333',
@@ -78,7 +98,40 @@ function init() {
 		'transitionOut'		: 'elastic',
 		'titlePosition'		: 'inside',
 		'titleFormat'		: function(title, currentArray, currentIndex, currentOpts) {
-			return '<span id="fancybox-title-over">' + imageStr + ' ' + (currentIndex + 1) + ' / ' + currentArray.length + (title.length ? ' &nbsp; ' + title : '') + '</span>';
+			var text = '';
+			switch (imagesOption) {
+				case 'title1':
+					text = title;
+					break;
+				case 'title2':
+					text = (currentIndex + 1) + ' &nbsp; ' + title
+					break;
+				case 'title3':
+					text = (currentIndex + 1) + ' / ' + currentArray.length + ' &nbsp; ' + title;
+					break;
+				case 'title4':
+					text = imageStr + ' ' + (currentIndex + 1) + ' &nbsp; ' + title
+					break;
+				case 'title5':
+					text = imageStr + ' ' + (currentIndex + 1) + ' / ' + currentArray.length + ' &nbsp; ' + title;
+					break;
+				case 'image1':
+					text = imageStr + ' ' + (currentIndex + 1);
+					break;
+				case 'image2':
+					text = imageStr + ' ' + (currentIndex + 1) + ' / ' + currentArray.length;
+					break;
+				case 'number1':
+					text = (currentIndex + 1);
+					break;
+				case 'number2':
+					text = (currentIndex + 1) + ' / ' + currentArray.length;
+					break;
+			}
+			if(jQuery.trim(text) == '') {
+				text = 	'&nbsp;';
+			}
+			return '<span id="fancybox-title-over">' + text + '</span>';
 		}
 	});
 }

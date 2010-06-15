@@ -1,13 +1,15 @@
+@charset "utf-8";
 
 @font-face {
 	font-family: 'GoodDogRegular';
 	src: url('../fonts/GoodDog.eot');
-	src: local('GoodDog'), local('GoodDog'), url('../fonts/GoodDog.woff') format('woff'), url('../fonts/GoodDog.ttf') format('truetype'), url('../fonts/GoodDog.svg#GoodDog') format('svg');
+	src: local('☺'), url('../fonts/GoodDog.woff') format('woff'), url('../fonts/GoodDog.ttf') format('truetype'), url('../fonts/GoodDog.svg#GoodDog') format('svg');
 }
+
 .polaroid-gallery {
 	clear: both;
 	position: relative;
-	margin: 40px 40px !important;
+	margin: 40px !important;
 	padding: 0 !important;
 	visibility: hidden;
 }
@@ -15,7 +17,7 @@
 	position: relative;
 	display: block !important;
 	float: left !important;
-	padding: 10px 10px 10px 10px !important;
+	padding: 10px !important;
 	margin: 0 !important;
 	border: 1px solid #fff !important;
 	background: #eee !important;
@@ -38,7 +40,7 @@
 	font-size: 22px !important;
 	line-height: 26px !important;
 	height: 26px !important; 
-	padding: 0 5px 0 5px !important;
+	padding: 0 5px !important;
 	margin: 0 -5px !important;
 	font-family: "GoodDogRegular", Georgia, serif;
 	overflow: hidden;
