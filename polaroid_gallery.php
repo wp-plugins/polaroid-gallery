@@ -138,11 +138,11 @@ if (!is_admin()) {
 	// add javascript to head
 	wp_enqueue_script('jquery');
 	wp_enqueue_script('jquery.easing-1.3', ($polaroid_gallery_plugin_prefix.'js/jquery.easing-1.3.pack.js'));
-	wp_enqueue_script('jquery.mousewheel-3.0.2', ($polaroid_gallery_plugin_prefix.'js/jquery.mousewheel-3.0.2.pack.js'));
-	wp_enqueue_script('jquery.fancybox-1.3.1', ($polaroid_gallery_plugin_prefix.'js/jquery.fancybox-1.3.1.pack.js'));
+	wp_enqueue_script('jquery.mousewheel-3.0.4', ($polaroid_gallery_plugin_prefix.'js/jquery.mousewheel-3.0.4.pack.js'));
+	wp_enqueue_script('jquery.fancybox-1.3.4', ($polaroid_gallery_plugin_prefix.'js/jquery.fancybox-1.3.4.pack.js'));
 	wp_enqueue_script('polaroid_gallery-2.0', ($polaroid_gallery_plugin_prefix.'js/polaroid_gallery-2.0.js'));
 	// add css to head
-	wp_enqueue_style('polaroid_gallery_fancybox', ($polaroid_gallery_plugin_prefix . 'css/jquery.fancybox-1.3.1.css'));
+	wp_enqueue_style('polaroid_gallery_fancybox', ($polaroid_gallery_plugin_prefix . 'css/jquery.fancybox-1.3.4.css'));
 	wp_enqueue_style('polaroid_gallery_style', ($polaroid_gallery_plugin_prefix . 'css/polaroid_gallery.css'));
 }
 
@@ -242,7 +242,7 @@ function polaroid_gallery_shortcode($output, $attr) {
 	
 	return $output;
 }
-// //var polaroid_gallery_image_str = '". __('Image') ."';
+
 function polaroid_gallery_head() {
 	global $polaroid_gallery_plugin_prefix;
 	
