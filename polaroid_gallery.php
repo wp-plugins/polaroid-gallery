@@ -3,7 +3,7 @@
 Plugin Name: Polaroid Gallery
 Plugin URI: http://www.mikkonen.info/polaroid_gallery/
 Description: Used to overlay images as polaroid pictures on the current page or post and uses WordPress Media Library.
-Version: 2.0.1
+Version: 2.0.2
 Author: Jani Mikkonen
 Author URI: http://www.mikkonen.info
 */
@@ -18,6 +18,7 @@ function polaroid_gallery_options_init() {
 	register_setting('polaroid_gallery_options', 'ignore_columns');
 	register_setting('polaroid_gallery_options', 'custom_text');
 	register_setting('polaroid_gallery_options', 'custom_text_value');
+	register_setting('polaroid_gallery_options', 'thumbnail_caption');
 	register_setting('polaroid_gallery_options', 'thumbnail_option');
 	register_setting('polaroid_gallery_options', 'image_option');
 }
@@ -38,6 +39,7 @@ function polaroid_gallery_options_do_page() {
 			$ignore_columns		= get_option('ignore_columns', 'no'); 
 			$custom_text		= get_option('custom_text', 'no');
 			$custom_text_value	= get_option('custom_text_value', 'Image');
+			$thumbnail_caption	= get_option('thumbnail_caption', 'show'); 
 			$thumbnail_option	= get_option('thumbnail_option', 'none'); 
 			$image_option		= get_option('image_option', 'title3'); 
 			?>
@@ -78,10 +80,20 @@ function polaroid_gallery_options_do_page() {
 				</td>
 			</tr>
 			<tr>
-				<th scope="row"><?php _e('Thumbnails text settings') ?></th>
+				<th scope="row"><?php _e('Thumbnail text visibility') ?></th>
 				<td>
 					<fieldset>
-						<legend class="screen-reader-text"><span><?php _e('Thumbnails text settings') ?></span></legend>
+						<legend class="screen-reader-text"><span><?php _e('Thumbnail text visibility') ?></span></legend>
+						<label title='<?php _e("Always visible"); ?>'><input type='radio' name='thumbnail_caption' value='show' <?php checked('show', $thumbnail_caption); ?>/> <?php _e("Always visible"); ?></label><br />
+						<label title='<?php _e("Visible with mouseover"); ?>'><input type='radio' name='thumbnail_caption' value='hide' <?php checked('hide', $thumbnail_caption); ?>/> <?php _e("Visible with mouseover"); ?></label><br />
+					</fieldset>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row"><?php _e('Thumbnail text settings') ?></th>
+				<td>
+					<fieldset>
+						<legend class="screen-reader-text"><span><?php _e('Thumbnail text settings') ?></span></legend>
 						<label title='<?php _e("None"); ?>'><input type='radio' name='thumbnail_option' value='none' <?php checked('none', $thumbnail_option); ?>/> <?php _e("None"); ?></label><br />
 						<label title='<?php _e("Caption text"); ?>'><input type='radio' name='thumbnail_option' value='caption' <?php checked('caption', $thumbnail_option); ?>/> <?php _e("Caption text"); ?></label><br />
 						<label title='<?php _e("Image #"); ?>'><input type='radio' name='thumbnail_option' value='image1' <?php checked('image1', $thumbnail_option); ?>/> <?php _e("Image #"); ?></label><br />
@@ -160,6 +172,7 @@ function polaroid_gallery_shortcode($output, $attr) {
 	
 	$image_size			= get_option('image_size', 'large'); 
 	$ignore_columns		= get_option('ignore_columns', 'no'); 
+	$thumbnail_caption	= get_option('thumbnail_caption', 'show');
 	
 	$id = intval($id);
 	if ( 'RAND' == $order ) {
@@ -205,8 +218,12 @@ function polaroid_gallery_shortcode($output, $attr) {
 		$thumb = wp_get_attachment_image_src($id, $size='thumbnail', $icon = false); 
 		$title = wptexturize(trim($attachment->post_title));
 		$alt = wptexturize(trim($attachment->post_excerpt));
+		$caption_class = '';
+		if($thumbnail_caption == 'show') {
+			$caption_class = ' showcaption';
+		}
 		$output .= '
-			<a href="'. $image[0] .'" title="'. $title .'" rel="polaroid_'. $post->ID .'" class="polaroid-gallery-item"><img src="'. $thumb[0] .'" width="'. $thumb[1] .'" height="'. $thumb[2] .'" alt="'. $alt .'" /></a>';
+			<a href="'. $image[0] .'" title="'. $title .'" rel="polaroid_'. $post->ID .'" class="polaroid-gallery-item'. $caption_class .'"><img src="'. $thumb[0] .'" width="'. $thumb[1] .'" height="'. $thumb[2] .'" alt="'. $alt .'" /></a>';
 		if ( $columns > 0 && ++$i % $columns == 0 ){
 			$output .= '
 			<br style="clear: both;" />';

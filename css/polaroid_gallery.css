@@ -50,3 +50,7 @@
 	visibility: visible !important;
 	height: auto !important;
 }
+.polaroid-gallery a.showcaption span,
+.polaroid-gallery a.showcaption:hover span {
+	visibility: visible !important;
+}
