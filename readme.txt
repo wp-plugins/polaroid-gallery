@@ -25,7 +25,7 @@ To do a manual installation of the plugin, please follow these steps.
 1. Download the zipped plugin file to your local machine.
 2. Unzip the file.
 3. Upload the `polaroid-gallery` folder to the `/wp-content/plugins/` directory.
-4. Activate the plugin through the 'Plugins' menu in WordPress.
+4. Activate the plugin through the *Plugins* menu in WordPress.
 5. Configure any options as desired
 6. Add a gallery and upload some images (the main gallery folder must have write permission).
 
@@ -76,3 +76,9 @@ To do a manual installation of the plugin, please follow these steps.
 6. Edit page.
 7. Post page.
 8. Fullscreen image.
+
+== License ==
+
+Polaroid Gallery is free and unencumbered [public domain][Unlicense] software.
+
+[Unlicense]: http://unlicense.org/
