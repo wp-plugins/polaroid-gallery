@@ -21,6 +21,7 @@ function polaroid_gallery_options_init() {
 	register_setting('polaroid_gallery_options', 'thumbnail_caption');
 	register_setting('polaroid_gallery_options', 'thumbnail_option');
 	register_setting('polaroid_gallery_options', 'image_option');
+	register_setting('polaroid_gallery_options', 'scratches');
 }
 
 function polaroid_gallery_options_add_page() {
@@ -41,7 +42,8 @@ function polaroid_gallery_options_do_page() {
 			$custom_text_value	= get_option('custom_text_value', 'Image');
 			$thumbnail_caption	= get_option('thumbnail_caption', 'show'); 
 			$thumbnail_option	= get_option('thumbnail_option', 'none'); 
-			$image_option		= get_option('image_option', 'title3'); 
+			$image_option		= get_option('image_option', 'title3');
+			$scratches			= get_option('scratches', 'yes');
 			?>
 			<h3><?php _e('Gallery Settings'); ?></h3>
 			<p><?php _e('Choose the image size to display when user clicks the thumbnail. Images will be scaled to fit the screen if they are too large.'); ?></p>
@@ -65,6 +67,16 @@ function polaroid_gallery_options_do_page() {
 						<legend class="screen-reader-text"><span><?php _e('Ignore Gallery columns') ?></span></legend>
 						<label title='<?php _e("No"); ?>'><input type='radio' name='ignore_columns' value='no' <?php checked('no', $ignore_columns); ?>/> <?php _e("No"); ?></label><br />
 						<label title='<?php _e("Yes"); ?>'><input type='radio' name='ignore_columns' value='yes' <?php checked('yes', $ignore_columns); ?>/> <?php _e("Yes (good for fluid layouts)"); ?></label><br />
+					</fieldset>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row"><?php _e('Add scratches to thumbnails') ?></th>
+				<td>
+					<fieldset>
+						<legend class="screen-reader-text"><span><?php _e('Add scratches to thumbnails') ?></span></legend>
+						<label title='<?php _e("No"); ?>'><input type='radio' name='scratches' value='no' <?php checked('no', $scratches); ?>/> <?php _e("No"); ?></label><br />
+						<label title='<?php _e("Yes"); ?>'><input type='radio' name='scratches' value='yes' <?php checked('yes', $scratches); ?>/> <?php _e("Yes"); ?></label><br />
 					</fieldset>
 				</td>
 			</tr>
@@ -136,11 +148,11 @@ $polaroid_gallery_plugin_prefix = WP_PLUGIN_URL . "/polaroid-gallery/";
 
 if (!is_admin()) {
 	// add javascript to head
-	wp_enqueue_script('jquery');
-	wp_enqueue_script('jquery.easing-1.3', ($polaroid_gallery_plugin_prefix.'js/jquery.easing-1.3.pack.js'));
-	wp_enqueue_script('jquery.mousewheel-3.0.4', ($polaroid_gallery_plugin_prefix.'js/jquery.mousewheel-3.0.4.pack.js'));
-	wp_enqueue_script('jquery.fancybox-1.3.4', ($polaroid_gallery_plugin_prefix.'js/jquery.fancybox-1.3.4.pack.js'));
-	wp_enqueue_script('polaroid_gallery-2.0', ($polaroid_gallery_plugin_prefix.'js/polaroid_gallery-2.0.js'));
+	wp_enqueue_script('jquery-css-transform', ($polaroid_gallery_plugin_prefix.'js/jquery-css-transform.min.js'), array('jquery'));
+	wp_enqueue_script('jquery.easing-1.3', ($polaroid_gallery_plugin_prefix.'js/jquery.easing-1.3.pack.js'), array('jquery'));
+	wp_enqueue_script('jquery.mousewheel-3.0.4', ($polaroid_gallery_plugin_prefix.'js/jquery.mousewheel-3.0.4.pack.js'), array('jquery'));
+	wp_enqueue_script('jquery.fancybox-1.3.4', ($polaroid_gallery_plugin_prefix.'js/jquery.fancybox-1.3.4.pack.js'), array('jquery'));
+	wp_enqueue_script('polaroid_gallery-2.0', ($polaroid_gallery_plugin_prefix.'js/polaroid_gallery-2.1.js'), array('jquery'));
 	// add css to head
 	wp_enqueue_style('polaroid_gallery_fancybox', ($polaroid_gallery_plugin_prefix . 'css/jquery.fancybox-1.3.4.css'));
 	wp_enqueue_style('polaroid_gallery_style', ($polaroid_gallery_plugin_prefix . 'css/polaroid_gallery.css'));
@@ -222,8 +234,13 @@ function polaroid_gallery_shortcode($output, $attr) {
 		if($thumbnail_caption == 'show') {
 			$caption_class = ' showcaption';
 		}
+		/*
 		$output .= '
 			<a href="'. $image[0] .'" title="'. $title .'" rel="polaroid_'. $post->ID .'" class="polaroid-gallery-item'. $caption_class .'"><img src="'. $thumb[0] .'" width="'. $thumb[1] .'" height="'. $thumb[2] .'" alt="'. $alt .'" /></a>';
+		*/
+		$output .= '
+			<a href="'. $image[0] .'" title="'. $title .'" rel="polaroid_'. $post->ID .'" class="polaroid-gallery-item'. $caption_class .'"><span class="polaroid-gallery-image" title="'. $alt .'" style="background-image: url('. $thumb[0] .'); width: '. $thumb[1] .'px; height: '. $thumb[2] .'px;"></span></a>';
+		
 		if ( $columns > 0 && ++$i % $columns == 0 ){
 			$output .= '
 			<br style="clear: both;" />';
@@ -250,6 +267,7 @@ function polaroid_gallery_head() {
 	$custom_text_value	= get_option('custom_text_value', 'Image');
 	$thumbnail_option	= get_option('thumbnail_option', 'none'); 
 	$image_option		= get_option('image_option', 'title3'); 
+	$scratches			= get_option('scratches', 'yes');
 	
 	$text2image = __('Image');
 	if($custom_text == 'yes') {
@@ -257,16 +275,16 @@ function polaroid_gallery_head() {
 	}
 	
 	$polaroid_gallery_script = "
-	<script type=\"text/javascript\">
-	/* <![CDATA[ */
-	var polaroid_gallery = { 
-		text2image: '". $text2image ."', thumbnail: '". $thumbnail_option ."', image: '". $image_option ."' 
-	};
-	/* ]]> */
-	</script>
-	<!--[if lt IE 8]>
-		<link rel=\"stylesheet\" type=\"text/css\" href=\"". $polaroid_gallery_plugin_prefix ."css/jquery.fancybox-old-ie.css\" />
-	<![endif]-->\n";
+<script type=\"text/javascript\">
+/* <![CDATA[ */
+var polaroid_gallery = { 
+	text2image: '". $text2image ."', thumbnail: '". $thumbnail_option ."', image: '". $image_option ."', scratches: '". $scratches ."' 
+};
+/* ]]> */
+</script>
+<!--[if lte IE 8]>
+	<link rel=\"stylesheet\" type=\"text/css\" href=\"". $polaroid_gallery_plugin_prefix ."css/jquery.fancybox-old-ie.css\" />
+<![endif]-->\n";
 	print $polaroid_gallery_script;
 }
 
