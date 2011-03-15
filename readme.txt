@@ -4,7 +4,7 @@ Donate link: http://www.mikkonen.info/donate/
 Tags: image, images, gallery, media, library, photo, photos, picture, pictures, polaroid, lightbox, fancybox, jquery, css3
 Requires at least: 2.8
 Tested up to: 3.1
-Stable tag: 2.0.2
+Stable tag: 2.0.3
 
 Polaroid Gallery is a CSS3 & jQuery Image Gallery plugin for WordPress Media Library.
 
