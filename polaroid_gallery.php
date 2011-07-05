@@ -3,7 +3,7 @@
 Plugin Name: Polaroid Gallery
 Plugin URI: http://www.mikkonen.info/polaroid_gallery/
 Description: Used to overlay images as polaroid pictures on the current page or post and uses WordPress Media Library.
-Version: 2.0.3
+Version: 2.0.4
 Author: Jani Mikkonen
 Author URI: http://www.mikkonen.info
 License: Unlicense
@@ -176,7 +176,6 @@ $polaroid_gallery_plugin_prefix = WP_PLUGIN_URL . "/polaroid-gallery/";
 
 if (!is_admin()) {
 	// add javascript to head
-	wp_enqueue_script('jquery-css-transform', ($polaroid_gallery_plugin_prefix.'js/jquery-css-transform.min.js'), array('jquery'));
 	wp_enqueue_script('jquery.easing-1.3', ($polaroid_gallery_plugin_prefix.'js/jquery.easing-1.3.pack.js'), array('jquery'));
 	wp_enqueue_script('jquery.mousewheel-3.0.4', ($polaroid_gallery_plugin_prefix.'js/jquery.mousewheel-3.0.4.pack.js'), array('jquery'));
 	wp_enqueue_script('jquery.fancybox-1.3.4', ($polaroid_gallery_plugin_prefix.'js/jquery.fancybox-1.3.4.pack.js'), array('jquery'));
@@ -262,10 +261,6 @@ function polaroid_gallery_shortcode($output, $attr) {
 		if($thumbnail_caption == 'show') {
 			$caption_class = ' showcaption';
 		}
-		/*
-		$output .= '
-			<a href="'. $image[0] .'" title="'. $title .'" rel="polaroid_'. $post->ID .'" class="polaroid-gallery-item'. $caption_class .'"><img src="'. $thumb[0] .'" width="'. $thumb[1] .'" height="'. $thumb[2] .'" alt="'. $alt .'" /></a>';
-		*/
 		$output .= '
 			<a href="'. $image[0] .'" title="'. $title .'" rel="polaroid_'. $post->ID .'" class="polaroid-gallery-item'. $caption_class .'"><span class="polaroid-gallery-image" title="'. $alt .'" style="background-image: url('. $thumb[0] .'); width: '. $thumb[1] .'px; height: '. $thumb[2] .'px;"></span></a>';
 		

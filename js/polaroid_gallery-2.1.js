@@ -1,3 +1,9 @@
+// see: http://bugs.jquery.com/ticket/8346
+jQuery.cssHooks["MsTransform"] = {
+	set: function( elem, value ) {
+		elem.style.msTransform = value;
+	}
+};
 
 jQuery.extend({
 	// find a random number between 0 and int
@@ -68,10 +74,18 @@ function init() {
 		
 		var cssObj = {
 			'z-index' : zIndex,
+			'-webkit-transform' : randDeg,
+			'-moz-transform' :  randDeg,
+			'-ms-transform' : randDeg,
+			'-o-transform' : randDeg,
 			'transform' : randDeg
 		};
 		var cssHoverObj = {
 			'z-index' : '1098',
+			'-webkit-transform' : 'scale(1.15)',
+			'-moz-transform' :  'scale(1.15)',
+			'-ms-transform' : 'scale(1.15)',
+			'-o-transform' : 'scale(1.15)',
 			'transform' : 'scale(1.15)'
 		};
 		var cssIeObj = {
