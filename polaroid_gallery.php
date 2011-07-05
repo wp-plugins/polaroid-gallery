@@ -3,7 +3,7 @@
 Plugin Name: Polaroid Gallery
 Plugin URI: http://www.mikkonen.info/polaroid_gallery/
 Description: Used to overlay images as polaroid pictures on the current page or post and uses WordPress Media Library.
-Version: 2.0.4
+Version: 2.0.5
 Author: Jani Mikkonen
 Author URI: http://www.mikkonen.info
 License: Unlicense
