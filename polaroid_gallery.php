@@ -3,10 +3,12 @@
 Plugin Name: Polaroid Gallery
 Plugin URI: http://www.mikkonen.info/polaroid_gallery/
 Description: Used to overlay images as polaroid pictures on the current page or post and uses WordPress Media Library.
-Version: 2.0.5
+Version: 2.0.6
 Author: Jani Mikkonen
 Author URI: http://www.mikkonen.info
 License: Unlicense
+TextDomain: polaroid-gallery
+DomainPath: /languages
 */
 
 /*
@@ -36,11 +38,13 @@ OTHER DEALINGS IN THE SOFTWARE.
 For more information, please refer to <http://unlicense.org/>
 */
 
+/** plugin init **/
+function polaroid_gallery_init() {
+	load_plugin_textdomain('polaroid-gallery', false, dirname(plugin_basename(__FILE__)) . '/languages' );
+}
+add_action('init', 'polaroid_gallery_init');
+
 /** admin code **/
-
-add_action('admin_init', 'polaroid_gallery_options_init');
-add_action('admin_menu', 'polaroid_gallery_options_add_page');
-
 function polaroid_gallery_options_init() {
 	register_setting('polaroid_gallery_options', 'image_size');
 	register_setting('polaroid_gallery_options', 'ignore_columns');
@@ -56,11 +60,14 @@ function polaroid_gallery_options_add_page() {
 	add_options_page('Polaroid Gallery Options', 'Polaroid Gallery', 'manage_options', 'polaroid_gallery_options', 'polaroid_gallery_options_do_page');
 }
 
+add_action('admin_init', 'polaroid_gallery_options_init');
+add_action('admin_menu', 'polaroid_gallery_options_add_page');
+
 function polaroid_gallery_options_do_page() {
 	?>
 	<div class="wrap">
 		<?php screen_icon(); ?>
-		<h2><?php _e('Polaroid Gallery Options') ?></h2>
+		<h2><?php _e('Polaroid Gallery Options', 'polaroid-gallery') ?></h2>
 		<form method="post" action="options.php">
 			<?php 
 			settings_fields('polaroid_gallery_options');
@@ -73,97 +80,97 @@ function polaroid_gallery_options_do_page() {
 			$image_option		= get_option('image_option', 'title3');
 			$scratches			= get_option('scratches', 'yes');
 			?>
-			<h3><?php _e('Gallery Settings'); ?></h3>
-			<p><?php _e('Choose the image size to display when user clicks the thumbnail. Images will be scaled to fit the screen if they are too large.'); ?></p>
-			<p><?php _e('You can adjust the image sizes via Settings -> Media.'); ?></p>
+			<h3><?php _e('Gallery Settings', 'polaroid-gallery'); ?></h3>
+			<p><?php _e('Choose the image size to display when user clicks the thumbnail. Images will be scaled to fit the screen if they are too large.', 'polaroid-gallery'); ?></p>
+			<p><?php _e('You can adjust the image sizes via Settings -> Media.', 'polaroid-gallery'); ?></p>
 			<table class="form-table">
 			<tr>
-				<th scope="row"><?php _e('Image sizes') ?></th>
+				<th scope="row"><?php _e('Image sizes', 'polaroid-gallery') ?></th>
 				<td>
 					<fieldset>
-						<legend class="screen-reader-text"><span><?php _e('Size') ?></span></legend>
-						<label title='<?php _e("Medium"); ?>'><input type='radio' name='image_size' value='medium' <?php checked('medium', $image_size); ?>/> <?php _e("Medium"); ?></label><br />
-						<label title='<?php _e("Large"); ?>'><input type='radio' name='image_size' value='large' <?php checked('large', $image_size); ?>/> <?php _e("Large"); ?></label><br />
-						<label title='<?php _e("Full size"); ?>'><input type='radio' name='image_size' value='full' <?php checked('full', $image_size); ?>/> <?php _e("Full size"); ?></label><br />
+						<legend class="screen-reader-text"><span><?php _e('Size', 'polaroid-gallery') ?></span></legend>
+						<label title='<?php _e("Medium", 'polaroid-gallery'); ?>'><input type='radio' name='image_size' value='medium' <?php checked('medium', $image_size); ?>/> <?php _e("Medium", 'polaroid-gallery'); ?></label><br />
+						<label title='<?php _e("Large", 'polaroid-gallery'); ?>'><input type='radio' name='image_size' value='large' <?php checked('large', $image_size); ?>/> <?php _e("Large", 'polaroid-gallery'); ?></label><br />
+						<label title='<?php _e("Full size", 'polaroid-gallery'); ?>'><input type='radio' name='image_size' value='full' <?php checked('full', $image_size); ?>/> <?php _e("Full size", 'polaroid-gallery'); ?></label><br />
 					</fieldset>
 				</td>
 			</tr>
 			<tr>
-				<th scope="row"><?php _e('Ignore Gallery columns') ?></th>
+				<th scope="row"><?php _e('Ignore Gallery columns', 'polaroid-gallery') ?></th>
 				<td>
 					<fieldset>
-						<legend class="screen-reader-text"><span><?php _e('Ignore Gallery columns') ?></span></legend>
-						<label title='<?php _e("No"); ?>'><input type='radio' name='ignore_columns' value='no' <?php checked('no', $ignore_columns); ?>/> <?php _e("No"); ?></label><br />
-						<label title='<?php _e("Yes"); ?>'><input type='radio' name='ignore_columns' value='yes' <?php checked('yes', $ignore_columns); ?>/> <?php _e("Yes (good for fluid layouts)"); ?></label><br />
+						<legend class="screen-reader-text"><span><?php _e('Ignore Gallery columns', 'polaroid-gallery') ?></span></legend>
+						<label title='<?php _e("No", 'polaroid-gallery'); ?>'><input type='radio' name='ignore_columns' value='no' <?php checked('no', $ignore_columns); ?>/> <?php _e("No", 'polaroid-gallery'); ?></label><br />
+						<label title='<?php _e("Yes", 'polaroid-gallery'); ?>'><input type='radio' name='ignore_columns' value='yes' <?php checked('yes', $ignore_columns); ?>/> <?php _e("Yes (good for fluid layouts)", 'polaroid-gallery'); ?></label><br />
 					</fieldset>
 				</td>
 			</tr>
 			<tr>
-				<th scope="row"><?php _e('Add scratches to thumbnails') ?></th>
+				<th scope="row"><?php _e('Add scratches to thumbnails', 'polaroid-gallery') ?></th>
 				<td>
 					<fieldset>
-						<legend class="screen-reader-text"><span><?php _e('Add scratches to thumbnails') ?></span></legend>
-						<label title='<?php _e("No"); ?>'><input type='radio' name='scratches' value='no' <?php checked('no', $scratches); ?>/> <?php _e("No"); ?></label><br />
-						<label title='<?php _e("Yes"); ?>'><input type='radio' name='scratches' value='yes' <?php checked('yes', $scratches); ?>/> <?php _e("Yes"); ?></label><br />
+						<legend class="screen-reader-text"><span><?php _e('Add scratches to thumbnails', 'polaroid-gallery') ?></span></legend>
+						<label title='<?php _e("No", 'polaroid-gallery'); ?>'><input type='radio' name='scratches' value='no' <?php checked('no', $scratches); ?>/> <?php _e("No", 'polaroid-gallery'); ?></label><br />
+						<label title='<?php _e("Yes", 'polaroid-gallery'); ?>'><input type='radio' name='scratches' value='yes' <?php checked('yes', $scratches); ?>/> <?php _e("Yes", 'polaroid-gallery'); ?></label><br />
 					</fieldset>
 				</td>
 			</tr>
 			<tr>
-				<th scope="row"><?php _e('Custom text for "Image"') ?></th>
+				<th scope="row"><?php _e('Custom text for "Image"', 'polaroid-gallery') ?></th>
 				<td>
 					<fieldset>
-						<legend class="screen-reader-text"><span><?php _e('Custom text for "Image"') ?></span></legend>
-						<label title='<?php _e("No"); ?>'><input type='radio' name='custom_text' value='no' <?php checked('no', $custom_text); ?>/> <?php _e("No (localized default text)"); ?></label><br />
-						<label title='<?php _e("Yes"); ?>'><input type='radio' name='custom_text' value='yes' <?php checked('yes', $custom_text); ?>/> <?php _e("Yes"); ?></label><br />
-						<label title='<?php _e("Text"); ?>'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php _e("Text"); ?>: <input type='text' name='custom_text_value' value='<?php print $custom_text_value; ?>' /></label><br />
+						<legend class="screen-reader-text"><span><?php _e('Custom text for "Image"', 'polaroid-gallery') ?></span></legend>
+						<label title='<?php _e("No", 'polaroid-gallery'); ?>'><input type='radio' name='custom_text' value='no' <?php checked('no', $custom_text); ?>/> <?php _e("No (localized default text)", 'polaroid-gallery'); ?></label><br />
+						<label title='<?php _e("Yes", 'polaroid-gallery'); ?>'><input type='radio' name='custom_text' value='yes' <?php checked('yes', $custom_text); ?>/> <?php _e("Yes", 'polaroid-gallery'); ?></label><br />
+						<label title='<?php _e("Text", 'polaroid-gallery'); ?>'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php _e("Text", 'polaroid-gallery'); ?>: <input type='text' name='custom_text_value' value='<?php print $custom_text_value; ?>' /></label><br />
 					</fieldset>
 				</td>
 			</tr>
 			<tr>
-				<th scope="row"><?php _e('Thumbnail text visibility') ?></th>
+				<th scope="row"><?php _e('Thumbnail text visibility', 'polaroid-gallery') ?></th>
 				<td>
 					<fieldset>
-						<legend class="screen-reader-text"><span><?php _e('Thumbnail text visibility') ?></span></legend>
-						<label title='<?php _e("Always visible"); ?>'><input type='radio' name='thumbnail_caption' value='show' <?php checked('show', $thumbnail_caption); ?>/> <?php _e("Always visible"); ?></label><br />
-						<label title='<?php _e("Visible with mouseover"); ?>'><input type='radio' name='thumbnail_caption' value='hide' <?php checked('hide', $thumbnail_caption); ?>/> <?php _e("Visible with mouseover"); ?></label><br />
+						<legend class="screen-reader-text"><span><?php _e('Thumbnail text visibility', 'polaroid-gallery') ?></span></legend>
+						<label title='<?php _e("Always visible", 'polaroid-gallery'); ?>'><input type='radio' name='thumbnail_caption' value='show' <?php checked('show', $thumbnail_caption); ?>/> <?php _e("Always visible", 'polaroid-gallery'); ?></label><br />
+						<label title='<?php _e("Visible with mouseover", 'polaroid-gallery'); ?>'><input type='radio' name='thumbnail_caption' value='hide' <?php checked('hide', $thumbnail_caption); ?>/> <?php _e("Visible with mouseover", 'polaroid-gallery'); ?></label><br />
 					</fieldset>
 				</td>
 			</tr>
 			<tr>
-				<th scope="row"><?php _e('Thumbnail text settings') ?></th>
+				<th scope="row"><?php _e('Thumbnail text settings', 'polaroid-gallery') ?></th>
 				<td>
 					<fieldset>
-						<legend class="screen-reader-text"><span><?php _e('Thumbnail text settings') ?></span></legend>
-						<label title='<?php _e("None"); ?>'><input type='radio' name='thumbnail_option' value='none' <?php checked('none', $thumbnail_option); ?>/> <?php _e("None"); ?></label><br />
-						<label title='<?php _e("Caption text"); ?>'><input type='radio' name='thumbnail_option' value='caption' <?php checked('caption', $thumbnail_option); ?>/> <?php _e("Caption text"); ?></label><br />
-						<label title='<?php _e("Image #"); ?>'><input type='radio' name='thumbnail_option' value='image1' <?php checked('image1', $thumbnail_option); ?>/> <?php _e("Image #"); ?></label><br />
-						<label title='<?php _e("Image #/#"); ?>'><input type='radio' name='thumbnail_option' value='image2' <?php checked('image2', $thumbnail_option); ?>/> <?php _e("Image #/#"); ?></label><br />
-						<label title='<?php _e("#"); ?>'><input type='radio' name='thumbnail_option' value='number1' <?php checked('number1', $thumbnail_option); ?>/> <?php _e("#"); ?></label><br />
-						<label title='<?php _e("#/#"); ?>'><input type='radio' name='thumbnail_option' value='number2' <?php checked('number2', $thumbnail_option); ?>/> <?php _e("#/#"); ?></label><br />
+						<legend class="screen-reader-text"><span><?php _e('Thumbnail text settings', 'polaroid-gallery') ?></span></legend>
+						<label title='<?php _e("None", 'polaroid-gallery'); ?>'><input type='radio' name='thumbnail_option' value='none' <?php checked('none', $thumbnail_option); ?>/> <?php _e("None", 'polaroid-gallery'); ?></label><br />
+						<label title='<?php _e("Caption text", 'polaroid-gallery'); ?>'><input type='radio' name='thumbnail_option' value='caption' <?php checked('caption', $thumbnail_option); ?>/> <?php _e("Caption text", 'polaroid-gallery'); ?></label><br />
+						<label title='<?php _e("Image #", 'polaroid-gallery'); ?>'><input type='radio' name='thumbnail_option' value='image1' <?php checked('image1', $thumbnail_option); ?>/> <?php _e("Image #", 'polaroid-gallery'); ?></label><br />
+						<label title='<?php _e("Image #/#", 'polaroid-gallery'); ?>'><input type='radio' name='thumbnail_option' value='image2' <?php checked('image2', $thumbnail_option); ?>/> <?php _e("Image #/#", 'polaroid-gallery'); ?></label><br />
+						<label title='<?php _e("#", 'polaroid-gallery'); ?>'><input type='radio' name='thumbnail_option' value='number1' <?php checked('number1', $thumbnail_option); ?>/> <?php _e("#", 'polaroid-gallery'); ?></label><br />
+						<label title='<?php _e("#/#", 'polaroid-gallery'); ?>'><input type='radio' name='thumbnail_option' value='number2' <?php checked('number2', $thumbnail_option); ?>/> <?php _e("#/#", 'polaroid-gallery'); ?></label><br />
 					</fieldset>
 				</td>
 			</tr>
 			<tr>
-				<th scope="row"><?php _e('Image text settings') ?></th>
+				<th scope="row"><?php _e('Image text settings', 'polaroid-gallery') ?></th>
 				<td>
 					<fieldset>
-						<legend class="screen-reader-text"><span><?php _e('Image text settings') ?></span></legend>
-						<label title='<?php _e("None"); ?>'><input type='radio' name='image_option' value='none' <?php checked('none', $image_option); ?>/> <?php _e("None"); ?></label><br />
-						<label title='<?php _e("Title text"); ?>'><input type='radio' name='image_option' value='title1' <?php checked('title1', $image_option); ?>/> <?php _e("Title text"); ?></label><br />
-						<label title='<?php _e("#  Title text"); ?>'><input type='radio' name='image_option' value='title2' <?php checked('title2', $image_option); ?>/> <?php _e("#  Title text"); ?></label><br />
-						<label title='<?php _e("#/#  Title text"); ?>'><input type='radio' name='image_option' value='title3' <?php checked('title3', $image_option); ?>/> <?php _e("#/#  Title text"); ?></label><br />
-						<label title='<?php _e("Image #  Title text"); ?>'><input type='radio' name='image_option' value='title4' <?php checked('title4', $image_option); ?>/> <?php _e("Image #  Title text"); ?></label><br />
-						<label title='<?php _e("Image #/#  Title text"); ?>'><input type='radio' name='image_option' value='title5' <?php checked('title5', $image_option); ?>/> <?php _e("Image #/#  Title text"); ?></label><br />
-						<label title='<?php _e("Image #"); ?>'><input type='radio' name='image_option' value='image1' <?php checked('image1', $image_option); ?>/> <?php _e("Image #"); ?></label><br />
-						<label title='<?php _e("Image #/#"); ?>'><input type='radio' name='image_option' value='image2' <?php checked('image2', $image_option); ?>/> <?php _e("Image #/#"); ?></label><br />
-						<label title='<?php _e("#"); ?>'><input type='radio' name='image_option' value='number1' <?php checked('number1', $image_option); ?>/> <?php _e("#"); ?></label><br />
-						<label title='<?php _e("#/#"); ?>'><input type='radio' name='image_option' value='number2' <?php checked('number2', $image_option); ?>/> <?php _e("#/#"); ?></label><br />
+						<legend class="screen-reader-text"><span><?php _e('Image text settings', 'polaroid-gallery') ?></span></legend>
+						<label title='<?php _e("None", 'polaroid-gallery'); ?>'><input type='radio' name='image_option' value='none' <?php checked('none', $image_option); ?>/> <?php _e("None", 'polaroid-gallery'); ?></label><br />
+						<label title='<?php _e("Title text", 'polaroid-gallery'); ?>'><input type='radio' name='image_option' value='title1' <?php checked('title1', $image_option); ?>/> <?php _e("Title text", 'polaroid-gallery'); ?></label><br />
+						<label title='<?php _e("#  Title text", 'polaroid-gallery'); ?>'><input type='radio' name='image_option' value='title2' <?php checked('title2', $image_option); ?>/> <?php _e("#  Title text", 'polaroid-gallery'); ?></label><br />
+						<label title='<?php _e("#/#  Title text", 'polaroid-gallery'); ?>'><input type='radio' name='image_option' value='title3' <?php checked('title3', $image_option); ?>/> <?php _e("#/#  Title text", 'polaroid-gallery'); ?></label><br />
+						<label title='<?php _e("Image #  Title text", 'polaroid-gallery'); ?>'><input type='radio' name='image_option' value='title4' <?php checked('title4', $image_option); ?>/> <?php _e("Image #  Title text", 'polaroid-gallery'); ?></label><br />
+						<label title='<?php _e("Image #/#  Title text", 'polaroid-gallery'); ?>'><input type='radio' name='image_option' value='title5' <?php checked('title5', $image_option); ?>/> <?php _e("Image #/#  Title text", 'polaroid-gallery'); ?></label><br />
+						<label title='<?php _e("Image #", 'polaroid-gallery'); ?>'><input type='radio' name='image_option' value='image1' <?php checked('image1', $image_option); ?>/> <?php _e("Image #", 'polaroid-gallery'); ?></label><br />
+						<label title='<?php _e("Image #/#", 'polaroid-gallery'); ?>'><input type='radio' name='image_option' value='image2' <?php checked('image2', $image_option); ?>/> <?php _e("Image #/#", 'polaroid-gallery'); ?></label><br />
+						<label title='<?php _e("#", 'polaroid-gallery'); ?>'><input type='radio' name='image_option' value='number1' <?php checked('number1', $image_option); ?>/> <?php _e("#", 'polaroid-gallery'); ?></label><br />
+						<label title='<?php _e("#/#", 'polaroid-gallery'); ?>'><input type='radio' name='image_option' value='number2' <?php checked('number2', $image_option); ?>/> <?php _e("#/#", 'polaroid-gallery'); ?></label><br />
 					</fieldset>
 				</td>
 			</tr>
 			</table>
 			<p class="submit">
-				<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
+				<input type="submit" class="button-primary" value="<?php _e('Save Changes', 'polaroid-gallery') ?>" />
 			</p>
 		</form>
 	</div>
@@ -171,18 +178,45 @@ function polaroid_gallery_options_do_page() {
 }
 
 /** plugin code **/
+function polaroid_gallery_enqueue() {
+	if (!is_admin()) {
+		global $wp_styles;
+		$polaroid_gallery_plugin_prefix = WP_PLUGIN_URL . "/polaroid-gallery/";
 
-$polaroid_gallery_plugin_prefix = WP_PLUGIN_URL . "/polaroid-gallery/";
+		// add javascript to head
+		wp_enqueue_script('jquery.easing-1.3', ($polaroid_gallery_plugin_prefix.'js/jquery.easing-1.3.pack.js'), array('jquery'));
+		wp_enqueue_script('jquery.mousewheel-3.0.6', ($polaroid_gallery_plugin_prefix.'js/jquery.mousewheel-3.0.6.pack.js'), array('jquery'));
+		wp_enqueue_script('jquery.fancybox-1.3.4', ($polaroid_gallery_plugin_prefix.'js/jquery.fancybox-1.3.4.pack.js'), array('jquery'));
+		wp_enqueue_script('polaroid_gallery-2.1', ($polaroid_gallery_plugin_prefix.'js/polaroid_gallery-2.1.js'), array('jquery'));
 
-if (!is_admin()) {
-	// add javascript to head
-	wp_enqueue_script('jquery.easing-1.3', ($polaroid_gallery_plugin_prefix.'js/jquery.easing-1.3.pack.js'), array('jquery'));
-	wp_enqueue_script('jquery.mousewheel-3.0.4', ($polaroid_gallery_plugin_prefix.'js/jquery.mousewheel-3.0.4.pack.js'), array('jquery'));
-	wp_enqueue_script('jquery.fancybox-1.3.4', ($polaroid_gallery_plugin_prefix.'js/jquery.fancybox-1.3.4.pack.js'), array('jquery'));
-	wp_enqueue_script('polaroid_gallery-2.0', ($polaroid_gallery_plugin_prefix.'js/polaroid_gallery-2.1.js'), array('jquery'));
-	// add css to head
-	wp_enqueue_style('polaroid_gallery_fancybox', ($polaroid_gallery_plugin_prefix . 'css/jquery.fancybox-1.3.4.css'));
-	wp_enqueue_style('polaroid_gallery_style', ($polaroid_gallery_plugin_prefix . 'css/polaroid_gallery.css'));
+		// add css to head
+		wp_enqueue_style('polaroid_gallery_fancybox', ($polaroid_gallery_plugin_prefix . 'css/jquery.fancybox-1.3.4.css'));
+		wp_enqueue_style('polaroid_gallery_style', ($polaroid_gallery_plugin_prefix . 'css/polaroid_gallery.css'));
+
+		// add IE css to head
+		wp_enqueue_style('polaroid_gallery_ie_style', ($polaroid_gallery_plugin_prefix . 'css/jquery.fancybox-old-ie.css'));
+		$wp_styles->add_data('polaroid_gallery_ie_style', 'conditional', 'lte IE 8');
+
+		// add localized javascript to head
+		$custom_text		= get_option('custom_text', 'no');
+		$custom_text_value	= get_option('custom_text_value', 'Image');
+		$thumbnail_option	= get_option('thumbnail_option', 'none');
+		$image_option		= get_option('image_option', 'title3');
+		$scratches			= get_option('scratches', 'yes');
+		$text2image 		= __('Image', 'polaroid-gallery');
+
+		if($custom_text == 'yes') {
+			$text2image = $custom_text_value;
+		}
+
+		$params = array(
+			'text2image' => $text2image,
+			'thumbnail' => $thumbnail_option,
+			'image' => $image_option,
+			'scratches' => $scratches,
+		);
+		wp_localize_script('polaroid_gallery-2.1', 'polaroid_gallery', $params);
+	}
 }
 
 function polaroid_gallery_shortcode($output, $attr) {
@@ -283,35 +317,7 @@ function polaroid_gallery_shortcode($output, $attr) {
 	return $output;
 }
 
-function polaroid_gallery_head() {
-	global $polaroid_gallery_plugin_prefix;
-	
-	$custom_text		= get_option('custom_text', 'no');
-	$custom_text_value	= get_option('custom_text_value', 'Image');
-	$thumbnail_option	= get_option('thumbnail_option', 'none'); 
-	$image_option		= get_option('image_option', 'title3'); 
-	$scratches			= get_option('scratches', 'yes');
-	
-	$text2image = __('Image');
-	if($custom_text == 'yes') {
-		$text2image = $custom_text_value;
-	}
-	
-	$polaroid_gallery_script = "
-<script type=\"text/javascript\">
-/* <![CDATA[ */
-var polaroid_gallery = { 
-	text2image: '". $text2image ."', thumbnail: '". $thumbnail_option ."', image: '". $image_option ."', scratches: '". $scratches ."' 
-};
-/* ]]> */
-</script>
-<!--[if lte IE 8]>
-	<link rel=\"stylesheet\" type=\"text/css\" href=\"". $polaroid_gallery_plugin_prefix ."css/jquery.fancybox-old-ie.css\" />
-<![endif]-->\n";
-	print $polaroid_gallery_script;
-}
-
-add_action('wp_head', 'polaroid_gallery_head');
+add_action('wp_enqueue_scripts', 'polaroid_gallery_enqueue');
 add_filter('post_gallery', 'polaroid_gallery_shortcode', 10, 2);
 
 ?>
