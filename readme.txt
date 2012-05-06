@@ -5,6 +5,7 @@ Tags: image, images, gallery, media, library, photo, photos, picture, pictures, 
 Requires at least: 3.1
 Tested up to: 3.4
 Stable tag: 2.0.5
+License: Unlicense
 
 Polaroid Gallery is a CSS3 & jQuery Image Gallery plugin for WordPress Media Library.
 
@@ -12,9 +13,16 @@ Polaroid Gallery is a CSS3 & jQuery Image Gallery plugin for WordPress Media Lib
 
 Polaroid Gallery is a CSS3 & jQuery Image Gallery plugin for WordPress Media Library. It is used to overlay images as polaroid pictures on the current page or post and uses WordPress Media Library.
 
+Polaroid Gallery has translations for the following languages:
+
+* English (default)
+* Finnish
+
 Use [Regenerate Thumbnails](http://wordpress.org/extend/plugins/regenerate-thumbnails/) plugin to regenerate thumbnails for all images that you have uploaded to your blog. 
 
 For more information visit the [Demo](http://wp.mikkonen.info/summer-2010/) page and [WordPress Gallery support](http://en.support.wordpress.com/images/gallery/).
+
+Would you like to add your language to the list? [Contact](http://www.mikkonen.info/polaroid_gallery/) me.
 
 == Installation ==
 
