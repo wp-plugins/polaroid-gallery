@@ -3,7 +3,7 @@
 Plugin Name: Polaroid Gallery
 Plugin URI: http://www.mikkonen.info/polaroid_gallery/
 Description: Used to overlay images as polaroid pictures on the current page or post and uses WordPress Media Library.
-Version: 2.0.6
+Version: 2.0.7
 Author: Jani Mikkonen
 Author URI: http://www.mikkonen.info
 License: Unlicense
@@ -187,15 +187,15 @@ function polaroid_gallery_enqueue() {
 		wp_enqueue_script('jquery.easing-1.3', ($polaroid_gallery_plugin_prefix.'js/jquery.easing-1.3.pack.js'), array('jquery'));
 		wp_enqueue_script('jquery.mousewheel-3.0.6', ($polaroid_gallery_plugin_prefix.'js/jquery.mousewheel-3.0.6.pack.js'), array('jquery'));
 		wp_enqueue_script('jquery.fancybox-1.3.4', ($polaroid_gallery_plugin_prefix.'js/jquery.fancybox-1.3.4.pack.js'), array('jquery'));
-		wp_enqueue_script('polaroid_gallery-2.1', ($polaroid_gallery_plugin_prefix.'js/polaroid_gallery-2.1.js'), array('jquery'));
+		wp_enqueue_script('polaroid_gallery-2.0.7', ($polaroid_gallery_plugin_prefix.'js/polaroid_gallery-2.1.js'), array('jquery'));
 
 		// add css to head
-		wp_enqueue_style('polaroid_gallery_fancybox', ($polaroid_gallery_plugin_prefix . 'css/jquery.fancybox-1.3.4.css'));
-		wp_enqueue_style('polaroid_gallery_style', ($polaroid_gallery_plugin_prefix . 'css/polaroid_gallery.css'));
+		wp_enqueue_style('polaroid_gallery_fancybox-2.0.7', ($polaroid_gallery_plugin_prefix . 'css/jquery.fancybox-1.3.4.css'));
+		wp_enqueue_style('polaroid_gallery_style-2.0.7', ($polaroid_gallery_plugin_prefix . 'css/polaroid_gallery.css'));
 
 		// add IE css to head
-		wp_enqueue_style('polaroid_gallery_ie_style', ($polaroid_gallery_plugin_prefix . 'css/jquery.fancybox-old-ie.css'));
-		$wp_styles->add_data('polaroid_gallery_ie_style', 'conditional', 'lte IE 8');
+		wp_enqueue_style('polaroid_gallery_ie_style-2.0.7', ($polaroid_gallery_plugin_prefix . 'css/jquery.fancybox-old-ie.css'));
+		$wp_styles->add_data('polaroid_gallery_ie_style-2.0.7', 'conditional', 'lte IE 8');
 
 		// add localized javascript to head
 		$custom_text		= get_option('custom_text', 'no');
@@ -215,7 +215,7 @@ function polaroid_gallery_enqueue() {
 			'image' => $image_option,
 			'scratches' => $scratches,
 		);
-		wp_localize_script('polaroid_gallery-2.1', 'polaroid_gallery', $params);
+		wp_localize_script('polaroid_gallery-2.0.7', 'polaroid_gallery', $params);
 	}
 }
 

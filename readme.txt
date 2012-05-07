@@ -4,7 +4,7 @@ Donate link: http://www.mikkonen.info/donate/
 Tags: image, images, gallery, media, library, photo, photos, picture, pictures, polaroid, lightbox, fancybox, jquery, css3
 Requires at least: 3.1
 Tested up to: 3.4
-Stable tag: 2.0.6
+Stable tag: 2.0.7
 License: Unlicense
 
 Polaroid Gallery is a CSS3 & jQuery Image Gallery plugin for WordPress Media Library.
@@ -46,6 +46,9 @@ To do a manual installation of the plugin, please follow these steps.
 2. Test if the plugin works properly with the default theme. Your theme might also generate some kind of css conflict.
 
 == Changelog ==
+
+= 2.0.7 =
+* Minor bug fix. Plugin now displays properly more then 100 thumbnails per page.
 
 = 2.0.6 =
 * Localization support.

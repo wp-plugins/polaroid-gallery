@@ -81,7 +81,7 @@ function init() {
 			'transform' : randDeg
 		};
 		var cssHoverObj = {
-			'z-index' : '1098',
+			'z-index' : '1998',
 			'-webkit-transform' : 'scale(1.15)',
 			'-moz-transform' :  'scale(1.15)',
 			'-ms-transform' : 'scale(1.15)',
