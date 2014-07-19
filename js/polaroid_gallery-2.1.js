@@ -34,13 +34,40 @@ jQuery.extend({
 
 function init() {
 	var $ = jQuery.noConflict(),
-		zIndex = 1000,
+		zIndex = 900,
 		imagesCount = $('.polaroid-gallery a.polaroid-gallery-item').size(),
 		imageStr = (typeof(polaroid_gallery) !== 'undefined' ) ? polaroid_gallery.text2image : 'Image',
 		thumbsOption = (typeof(polaroid_gallery) !== 'undefined' ) ? polaroid_gallery.thumbnail : 'none',
 		imagesOption = (typeof(polaroid_gallery) !== 'undefined' ) ? polaroid_gallery.image : 'title3',
 		scratches = (typeof(polaroid_gallery) !== 'undefined' ) ? polaroid_gallery.scratches : 'yes';
-	
+	var cssHoverObj = {
+		'z-index' : '1001',
+		'-webkit-transform' : 'scale(1.15)',
+		'-moz-transform' :  'scale(1.15)',
+		'-ms-transform' : 'scale(1.15)',
+		'-o-transform' : 'scale(1.15)',
+		'transform' : 'scale(1.15)'
+		};
+	var isThisOldIe = ($.browser.msie && parseInt($.browser.version, 10) < 9);
+	var getText;
+	switch (thumbsOption) {
+			case 'none':
+				getText = function(imageStr, imagesCount, currentIndex) { return '&nbsp;'; };
+				break;
+			case 'image1':
+				getText = function(imageStr, imagesCount, currentIndex) { return imageStr +'&nbsp; '+ (currentIndex + 1); };
+				break;
+			case 'image2':
+				getText = function(imageStr, imagesCount, currentIndex) { return imageStr +'&nbsp; '+ (currentIndex + 1) +' / '+ imagesCount; };
+				break;
+			case 'number1':
+				getText = function(imageStr, imagesCount, currentIndex) { return (currentIndex + 1); };
+				break;
+			case 'number2':
+				getText = function(imageStr, imagesCount, currentIndex) { return (currentIndex + 1) +' / '+ imagesCount; }; 
+				break;
+	};
+
 	$(".polaroid-gallery a.polaroid-gallery-item").each(function(currentIndex) {
 		zIndex++;
 		var width = $(this).width(),
@@ -50,26 +77,21 @@ function init() {
 			randPos = $.randomBackgroundPosition(),
 			ieFilter = $.ieRotateFilter(randNum);
 		
-		switch (thumbsOption) {
-			case 'none':
-				text = '';
-				break;
-			case 'image1':
-				text = imageStr +'&nbsp; '+ (currentIndex + 1);
-				break;
-			case 'image2':
-				text = imageStr +'&nbsp; '+ (currentIndex + 1) +' / '+ imagesCount;
-				break;
-			case 'number1':
-				text = (currentIndex + 1);
-				break;
-			case 'number2':
-				text = (currentIndex + 1) +' / '+ imagesCount;
-				break;
-		}
+		text = getText(imageStr, imagesCount, currentIndex);
+
+		$("span", this).after('<span class="polaroid-gallery-text" style="width:'+width+'px;">'+text+'</span>');
 		
-		if(text === '') {
-			text = '&nbsp;';
+		if (isThisOldIe) {
+			var cssIeObj = {
+				'filter' : ieFilter,
+				'-ms-filter' : '"'+ ieFilter +'"'
+			};
+			$(this).css(cssIeObj);
+		} else {			
+			if(scratches === 'yes') {
+				$("span.polaroid-gallery-text", this)
+					.after('<span class="polaroid-gallery-scratches" style="background-position: '+randPos+';"></span>');
+			}
 		}
 		
 		var cssObj = {
@@ -80,31 +102,7 @@ function init() {
 			'-o-transform' : randDeg,
 			'transform' : randDeg
 		};
-		var cssHoverObj = {
-			'z-index' : '1998',
-			'-webkit-transform' : 'scale(1.15)',
-			'-moz-transform' :  'scale(1.15)',
-			'-ms-transform' : 'scale(1.15)',
-			'-o-transform' : 'scale(1.15)',
-			'transform' : 'scale(1.15)'
-		};
-		var cssIeObj = {
-			'filter' : ieFilter,
-			'-ms-filter' : '"'+ ieFilter +'"'
-		};
-		
-		if ($.browser.msie && parseInt($.browser.version, 10) < 9) {
-			$("span", this).after('<span class="polaroid-gallery-text">'+text+'</span>');
-			$("span.polaroid-gallery-text", this).width(width);
-			$(this).css(cssIeObj);
-		} else {
-			$("span", this).after('<span class="polaroid-gallery-text">'+text+'</span>');
-			$("span.polaroid-gallery-text", this).width(width);
-			if(scratches === 'yes') {
-				$("span.polaroid-gallery-text", this).after('<span class="polaroid-gallery-scratches" style="background-position: '+randPos+';"></span>');
-			}
-		}
-		
+
 		$(this).css(cssObj);
 		$(this).hover(function () {
 			$(this).css(cssHoverObj);
@@ -112,11 +110,11 @@ function init() {
 			$(this).css(cssObj);
 		});			
 	});
-	
+
 	$(".polaroid-gallery").css('visibility', 'visible');
 	
 	$(".polaroid-gallery a.polaroid-gallery-item").fancybox({
-		'padding'			: 20,
+		'padding'			: 16,
 		'margin'			: 40,
 		'transitionIn'		: 'elastic',
 		'transitionOut'		: 'elastic',

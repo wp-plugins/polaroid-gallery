@@ -1,17 +1,18 @@
 ﻿=== Polaroid Gallery ===
-Contributors: janisto
+Contributors: janisto, tashemi
 Donate link: http://www.mikkonen.info/donate/
 Tags: image, images, gallery, media, library, photo, photos, picture, pictures, polaroid, lightbox, fancybox, jquery, css3
 Requires at least: 3.1
-Tested up to: 3.4
-Stable tag: 2.0.7
+Tested up to: 3.9
+Stable tag: 2.1
 License: Unlicense
 
 Polaroid Gallery is a CSS3 & jQuery Image Gallery plugin for WordPress Media Library.
 
 == Description ==
 
-Polaroid Gallery is a CSS3 & jQuery Image Gallery plugin for WordPress Media Library. It is used to overlay images as polaroid pictures on the current page or post and uses WordPress Media Library.
+Polaroid Gallery is a CSS3 & jQuery Image Gallery plugin for WordPress Media Library. It is used to overlay images as polaroid pictures on the current page or post and uses WordPress Media Library. Using Polaroid Gallery you add unique view for your blog posts. Polaroid Gallery adds feeling of old good times. 
+It is quite easy to use. All you need to do is to create standard wordpress gallery. All other things Polaroid Gallery will make for you by its own. Once you try it you love it.
 
 Polaroid Gallery has translations for the following languages:
 
@@ -20,9 +21,14 @@ Polaroid Gallery has translations for the following languages:
 
 Use [Regenerate Thumbnails](http://wordpress.org/extend/plugins/regenerate-thumbnails/) plugin to regenerate thumbnails for all images that you have uploaded to your blog. 
 
-For more information visit the [Demo](http://wp.mikkonen.info/summer-2010/) page and [WordPress Gallery support](http://en.support.wordpress.com/images/gallery/).
+For more information visit [WordPress Gallery support](http://en.support.wordpress.com/images/gallery/).
+Plugin in use: 
+[Demo 1](http://wp.mikkonen.info/summer-2010/)
+[Demo 2](http://life-thai.com/chem-horosha-shri-lanka/)
 
-Would you like to add your language to the list? [Contact](http://www.mikkonen.info/polaroid_gallery/) me.
+Feel donating? You are wellcome [to donate](http://goo.gl/qpiHxj)
+
+Would you like to add your language to the list? Contact [janisto](http://www.mikkonen.info/polaroid_gallery/) or [tashemi](info@life-thai.com)
 
 == Installation ==
 
@@ -46,6 +52,15 @@ To do a manual installation of the plugin, please follow these steps.
 2. Test if the plugin works properly with the default theme. Your theme might also generate some kind of css conflict.
 
 == Changelog ==
+
+= 2.1 =
+* Fancybox  js-files moved on CDNjs.com
+* Fixed bug with showing images from all galleries on the page.
+* Fixed bug with z-index on paralax scrolling pages
+* Prevent loading plugin's libraries if pages are displayed. Plugin loads only for single post
+* Added option "Load gallery in list of posts"
+* Support mobile phones
+* Optimized script speed
 
 = 2.0.7 =
 * Minor bug fix. Plugin now displays properly more then 100 thumbnails per page.
