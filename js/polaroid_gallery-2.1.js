@@ -50,21 +50,25 @@ function init() {
 		};
 	var isThisOldIe = ($.browser.msie && parseInt($.browser.version, 10) < 9);
 	var getText;
-	switch (thumbsOption) {
-			case 'none':
-				getText = function(imageStr, imagesCount, currentIndex) { return '&nbsp;'; };
-				break;
+	switch (thumbsOption) {			
 			case 'image1':
-				getText = function(imageStr, imagesCount, currentIndex) { return imageStr +'&nbsp; '+ (currentIndex + 1); };
+				getText = function(currentIndex) { return imageStr +'&nbsp; '+ (currentIndex + 1); };
 				break;
 			case 'image2':
-				getText = function(imageStr, imagesCount, currentIndex) { return imageStr +'&nbsp; '+ (currentIndex + 1) +' / '+ imagesCount; };
+				getText = function(currentIndex) { return imageStr +'&nbsp; '+ (currentIndex + 1) +' / '+ imagesCount; };
 				break;
 			case 'number1':
-				getText = function(imageStr, imagesCount, currentIndex) { return (currentIndex + 1); };
+				getText = function(currentIndex) { return (currentIndex + 1); };
 				break;
 			case 'number2':
-				getText = function(imageStr, imagesCount, currentIndex) { return (currentIndex + 1) +' / '+ imagesCount; }; 
+				getText = function(currentIndex) { return (currentIndex + 1) +' / '+ imagesCount; }; 
+				break;
+			case 'none':
+				getText = function(currentIndex) { return '&nbsp;'; };
+				break;
+			case 'caption':
+			default:
+				getText = function(currentIndex, defaultText) { return defaultText + '&nbsp;'; };
 				break;
 	};
 
@@ -77,7 +81,7 @@ function init() {
 			randPos = $.randomBackgroundPosition(),
 			ieFilter = $.ieRotateFilter(randNum);
 		
-		text = getText(imageStr, imagesCount, currentIndex);
+		text = getText(currentIndex, text);
 
 		$("span", this).after('<span class="polaroid-gallery-text" style="width:'+width+'px;">'+text+'</span>');
 		

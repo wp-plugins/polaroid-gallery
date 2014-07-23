@@ -3,7 +3,7 @@
 Plugin Name: Polaroid Gallery
 Plugin URI: http://www.mikkonen.info/polaroid_gallery/
 Description: Used to overlay images as polaroid pictures on the current page or post and uses WordPress Media Library.
-Version: 2.1
+Version: 2.1.1
 Author: Jani Mikkonen
 Author URI: http://www.mikkonen.info
 Contributors: tashemi
@@ -332,10 +332,10 @@ function makeGalleryForPCandTablets($attachments, $thumbnail_caption, $id, $igno
 		$image = wp_get_attachment_image_src($id, $size=$image_size, $icon = false); 
 		$thumb = wp_get_attachment_image_src($id, $size='thumbnail', $icon = false); 
 		$title = wptexturize(trim($attachment->post_title));
-		if ($title == "")
+		/*if ($title == "")
 		{
 			$title = wptexturize(trim($attachment->post_excerpt));
-		}
+		}*/
 		$alt = wptexturize(trim($attachment->post_excerpt));
 		
 		$output .= '
