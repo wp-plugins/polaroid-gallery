@@ -82,7 +82,7 @@ function polaroid_gallery_options_do_page() {
 			$thumbnail_option	= get_option('thumbnail_option', 'none'); 
 			$image_option		= get_option('image_option', 'title3');
 			$scratches			= get_option('scratches', 'yes');
-			$show_in_pages		= get_option('show_in_pages', 'no');
+			$show_in_pages		= get_option('show_in_pages', 'yes');
 			?>
 			<h3><?php _e('Gallery Settings', 'polaroid-gallery'); ?></h3>
 			<p><?php _e('Choose the image size to display when user clicks the thumbnail. Images will be scaled to fit the screen if they are too large.', 'polaroid-gallery'); ?></p>
