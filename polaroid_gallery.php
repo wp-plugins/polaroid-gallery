@@ -3,7 +3,7 @@
 Plugin Name: Polaroid Gallery
 Plugin URI: http://www.mikkonen.info/polaroid_gallery/
 Description: Used to overlay images as polaroid pictures on the current page or post and uses WordPress Media Library.
-Version: 2.1.1
+Version: 2.1.2
 Author: Jani Mikkonen
 Author URI: http://www.mikkonen.info
 Contributors: tashemi
@@ -100,12 +100,12 @@ function polaroid_gallery_options_do_page() {
 				</td>
 			</tr>
 			<tr>
-				<th scope="row"><?php _e('Load gallery in list of posts', 'polaroid-gallery') ?></th>
+				<th scope="row"><?php _e('Run gallery everywhere', 'polaroid-gallery') ?></th>
 				<td>
 					<fieldset>
 						<legend class="screen-reader-text"><span><?php _e('Load gallery in list of posts', 'polaroid-gallery') ?></span></legend>
-						<label title='<?php _e("No", 'polaroid-gallery'); ?>'><input type='radio' name='show_in_pages' value='no' <?php checked('no', $show_in_pages); ?>/> <?php _e("No (good for blogs where only excerpt of post is displayed in the posts list)", 'polaroid-gallery'); ?></label><br />
-						<label title='<?php _e("Yes", 'polaroid-gallery'); ?>'><input type='radio' name='show_in_pages' value='yes' <?php checked('yes', $show_in_pages); ?>/> <?php _e("Yes (good for blogs where posts are displayed full in the list of posts)", 'polaroid-gallery'); ?></label><br />
+						<label title='<?php _e("No", 'polaroid-gallery'); ?>'><input type='radio' name='show_in_pages' value='no' <?php checked('no', $show_in_pages); ?>/> <?php _e("No (it is good for blogs where gallery is used only in posts)", 'polaroid-gallery'); ?></label><br />
+						<label title='<?php _e("Yes", 'polaroid-gallery'); ?>'><input type='radio' name='show_in_pages' value='yes' <?php checked('yes', $show_in_pages); ?>/> <?php _e("Yes (it is good for web sites where gallery is used on custom pages and it is good for blogs where posts are displayed full (no excerpt) in the list of posts)", 'polaroid-gallery'); ?></label><br />
  					</fieldset>
  				</td>
 			</tr>
@@ -200,9 +200,9 @@ function polaroid_gallery_enqueue() {
 		// detect PC user 
 		if (!isMobileDetected()){
 			// add javascript to head
-			wp_enqueue_script('jquery.easing-1.3', ('http://cdnjs.cloudflare.com/ajax/libs/fancybox/1.3.4/jquery.easing-1.3.pack.js'), array('jquery'), false, true);
-			wp_enqueue_script('jquery.mousewheel-3.0.4', ('http://cdnjs.cloudflare.com/ajax/libs/fancybox/1.3.4/jquery.mousewheel-3.0.4.pack.js'), array('jquery'), false, true);
-			wp_enqueue_script('jquery.fancybox-1.3.4', ('http://cdnjs.cloudflare.com/ajax/libs/fancybox/1.3.4/jquery.fancybox-1.3.4.pack.min.js'), array('jquery'), false, true);
+			wp_enqueue_script('jquery.easing-1.3', ('//cdnjs.cloudflare.com/ajax/libs/fancybox/1.3.4/jquery.easing-1.3.pack.js'), array('jquery'), false, true);
+			wp_enqueue_script('jquery.mousewheel-3.0.4', ('//cdnjs.cloudflare.com/ajax/libs/fancybox/1.3.4/jquery.mousewheel-3.0.4.pack.js'), array('jquery'), false, true);
+			wp_enqueue_script('jquery.fancybox-1.3.4', ('//cdnjs.cloudflare.com/ajax/libs/fancybox/1.3.4/jquery.fancybox-1.3.4.pack.min.js'), array('jquery'), false, true);
 			wp_enqueue_script('polaroid_gallery-2.1', ($polaroid_gallery_plugin_prefix.'js/polaroid_gallery-2.1.js'), array('jquery'), false, true);
 
 			// add css to head
@@ -311,15 +311,33 @@ function polaroid_gallery_shortcode($output, $attr) {
 	return $output;	
 }
 
+/**
+	 * Registers additional links for the Polaroid Gallery plugin on the WP plugin configuration page
+	 *
+	 * Registers the links if the $file param equals to the sitemap plugin
+	 * @param $links Array An array with the existing links
+	 * @param $file string The file to compare to
+	 * @return string[]
+*/
+function polaroid_gallery_register_plugin_links($links, $file) {
+	$base = basename(__FILE__);
+	if(basename($file) == $base) {
+		$links[] = '<a href="options-general.php?page=polaroid_gallery_options">' . __('Settings', 'polaroid-gallery') . '</a>';
+		$links[] = '<a href="http://wordpress.org/plugins/polaroid-gallery/faq/">' . __('FAQ', 'polaroid-gallery') . '</a>';
+		$links[] = '<a href="http://wordpress.org/support/plugin/polaroid-gallery">' . __('Support', 'polaroid-gallery') . '</a>';
+		$links[] = '<a href="http://goo.gl/qpiHxj">' . __('Donate', 'polaroid-gallery') . '</a>';
+	}
+	return $links;
+}
+
 function makeGalleryForPCandTablets($attachments, $thumbnail_caption, $id, $ignore_columns, $columns){
 	$columns = intval($columns);
 	if( $ignore_columns == 'yes' ) {
 		$columns = 0;
 	}
-	$output .= "
-		<div class='polaroid-gallery galleryid-{$id}'>";
+	$output .= "<div class='polaroid-gallery galleryid-{$id}'>";
 	
-	$i = 0;
+	$images_counter = 0;
 	
 	$galleryGroupId = rand();
 	
@@ -341,12 +359,12 @@ function makeGalleryForPCandTablets($attachments, $thumbnail_caption, $id, $igno
 		$output .= '
 			<a href="'. $image[0] .'" title="'. $title .'" rel="polaroid_'. $galleryGroupId .'" class="polaroid-gallery-item'. $caption_class .'"><span class="polaroid-gallery-image" title="'. $alt .'" style="background-image: url('. $thumb[0] .'); width: '. $thumb[1] .'px; height: '. $thumb[2] .'px;"></span></a>';
 		
-		if ( $columns > 0 && ++$i % $columns == 0 ){
+		if ( $columns > 0 && ++$images_counter % $columns == 0 ){
 			$output .= '
 			<br style="clear: both;" />';
 		}
 	}
-	if ( $columns > 0 && $i % $columns != 0 ) {
+	if ( $columns > 0 && $images_counter % $columns != 0 ) {
 		$output .= '
 			<br style="clear: both;" />';
 	}
@@ -354,15 +372,13 @@ function makeGalleryForPCandTablets($attachments, $thumbnail_caption, $id, $igno
 		$output .= '
 			<br style="clear: both;" />';
 	}
-	$output .= "
-		</div>\n";
+	$output .= "</div>\n";
 	
 	return $output;
 }
 
 function makeGalleryForPhones($attachments, $thumbnail_caption, $id){
-	$output .= "
-		<div class='polaroid-gallery galleryid-{$id}'>";
+	$output .= "<div class='polaroid-gallery galleryid-{$id}'>";
 	
 	$caption_class = '';
 	if($thumbnail_caption == 'show') {
@@ -390,8 +406,7 @@ function makeGalleryForPhones($attachments, $thumbnail_caption, $id){
 
 	}
 
-	$output .= "
-		</div>\n";
+	$output .= "</div>\n";
 	
 	return $output;
 }
@@ -406,11 +421,13 @@ function isMobileDetected() {
 }
 
 function isTimeToLoadGallery(){
-	$show_in_pages = (get_option('show_in_pages', 'no') === 'yes');
+	$show_in_pages = (get_option('show_in_pages', 'yes') === 'yes');
 	return (!is_admin() AND ($show_in_pages OR is_single() OR is_feed()));
 }
 
 add_action('wp_enqueue_scripts', 'polaroid_gallery_enqueue');
+//Shortcode
 add_filter('post_gallery', 'polaroid_gallery_shortcode', 10, 2);
-
+//Additional links on the plugin page
+add_filter('plugin_row_meta', 'polaroid_gallery_register_plugin_links', 10, 2);
 ?>
