@@ -26,7 +26,7 @@ Plugin in use:
 [Demo 1](http://wp.mikkonen.info/summer-2010/)
 [Demo 2](http://life-thai.com/chem-horosha-shri-lanka/)
 
-Feel donating? You are wellcome [to donate](http://goo.gl/qpiHxj)
+Feel donating? You are wellcome [to donate](http://goo.gl/1zRQjY)
 
 Would you like to add your language to the list? Contact [janisto](http://www.mikkonen.info/polaroid_gallery/) or [tashemi](info@life-thai.com)
 

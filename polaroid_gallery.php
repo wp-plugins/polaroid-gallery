@@ -7,7 +7,7 @@ Version: 2.1.2
 Author: Jani Mikkonen
 Author URI: http://www.mikkonen.info
 Contributors: tashemi
-Donate link: http://goo.gl/qpiHxj
+Donate link: http://goo.gl/1zRQjY
 License: Unlicense
 TextDomain: polaroid-gallery
 DomainPath: /languages
@@ -325,7 +325,7 @@ function polaroid_gallery_register_plugin_links($links, $file) {
 		$links[] = '<a href="options-general.php?page=polaroid_gallery_options">' . __('Settings', 'polaroid-gallery') . '</a>';
 		$links[] = '<a href="http://wordpress.org/plugins/polaroid-gallery/faq/">' . __('FAQ', 'polaroid-gallery') . '</a>';
 		$links[] = '<a href="http://wordpress.org/support/plugin/polaroid-gallery">' . __('Support', 'polaroid-gallery') . '</a>';
-		$links[] = '<a href="http://goo.gl/qpiHxj">' . __('Donate', 'polaroid-gallery') . '</a>';
+		$links[] = '<a href="http://goo.gl/1zRQjY">' . __('Donate', 'polaroid-gallery') . '</a>';
 	}
 	return $links;
 }
