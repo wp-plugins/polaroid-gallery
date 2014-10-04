@@ -3,7 +3,7 @@
 Plugin Name: Polaroid Gallery
 Plugin URI: http://www.mikkonen.info/polaroid_gallery/
 Description: Used to overlay images as polaroid pictures on the current page or post and uses WordPress Media Library.
-Version: 2.1.2
+Version: 2.1.3
 Author: Jani Mikkonen
 Author URI: http://www.mikkonen.info
 Contributors: tashemi
@@ -242,6 +242,7 @@ function polaroid_gallery_enqueue() {
 
 function polaroid_gallery_shortcode($output, $attr) {
 	if (!isTimeToLoadGallery()) return $output;
+	if (isset($attr['usedefault']) && $attr['usedefault']=="true") return $output;
 	global $post, $wp_locale;
 	
 	// We're trusting author input, so let's at least make sure it looks like a valid orderby statement
@@ -302,10 +303,10 @@ function polaroid_gallery_shortcode($output, $attr) {
 	
 	// detect PC user 
 	if (!isMobileDetected()){
-		$output = makeGalleryForPCandTablets($attachments, $thumbnail_caption, $id, $ignore_columns, $columns);
+		$output = makeGalleryForPCandTablets($attachments, $thumbnail_caption, $id, $image_size, $ignore_columns, $columns);
 	}else
 	{
-		$output = makeGalleryForPhones($attachments, $thumbnail_caption, $id);
+		$output = makeGalleryForPhones($attachments, $thumbnail_caption, $id, $image_size);
 	}
 
 	return $output;	
@@ -330,7 +331,7 @@ function polaroid_gallery_register_plugin_links($links, $file) {
 	return $links;
 }
 
-function makeGalleryForPCandTablets($attachments, $thumbnail_caption, $id, $ignore_columns, $columns){
+function makeGalleryForPCandTablets($attachments, $thumbnail_caption, $id, $image_size, $ignore_columns, $columns){
 	$columns = intval($columns);
 	if( $ignore_columns == 'yes' ) {
 		$columns = 0;
@@ -377,7 +378,7 @@ function makeGalleryForPCandTablets($attachments, $thumbnail_caption, $id, $igno
 	return $output;
 }
 
-function makeGalleryForPhones($attachments, $thumbnail_caption, $id){
+function makeGalleryForPhones($attachments, $thumbnail_caption, $id, $image_size){
 	$output .= "<div class='polaroid-gallery galleryid-{$id}'>";
 	
 	$caption_class = '';
