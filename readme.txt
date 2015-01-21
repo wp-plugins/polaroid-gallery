@@ -3,8 +3,8 @@ Contributors: janisto, tashemi
 Donate link: http://www.mikkonen.info/donate/
 Tags: image, images, gallery, media, library, photo, photos, picture, pictures, polaroid, lightbox, fancybox, jquery, css3
 Requires at least: 3.1
-Tested up to: 4.0
-Stable tag: 2.1.4
+Tested up to: 4.1
+Stable tag: 2.1.5
 License: Unlicense
 
 Polaroid Gallery is a CSS3 & jQuery Image Gallery plugin for WordPress Media Library.
@@ -26,7 +26,7 @@ Plugin in use:
 [Demo 1](http://wp.mikkonen.info/summer-2010/)
 [Demo 2](http://life-thai.com/chem-horosha-shri-lanka/)
 
-Feel donating? You are wellcome [to donate](http://goo.gl/1zRQjY)
+Feel donating? You are wellcome [to donate](http://goo.gl/0gvUvm)
 
 Would you like to add your language to the list? Contact [janisto](http://www.mikkonen.info/polaroid_gallery/) or [tashemi](info@life-thai.com)
 
@@ -56,6 +56,10 @@ To do a manual installation of the plugin, please follow these steps.
 If you want to use default wordpress gallery in some places it is easy. Add to the gallery shortcode on the page attribute `usedefault="true"`. It should looks like `[gallery ids="1466,1464,1465" usedefault="true"]`
 
 == Changelog ==
+= 2.1.5 = 
+* Fixed few bugs
+* Update MobileDetect library up to 2.8.11
+
 = 2.1.4 = 
 * Fixed "Notice: Undefined variable: output"
 
@@ -64,7 +68,7 @@ If you want to use default wordpress gallery in some places it is easy. Add to t
 * Added posibility to choose when to use Polaroid Gallery on Pages with attr "usedefault"
 
 = 2.1.2 = 
-* Fixed error "blocked loading mixed active content" in FF when user opens webpage via ssl connection. 
+* Fixed SSL issue: error "blocked loading mixed active content" in FF when user opens webpage via ssl connection. 
 * Bug fix. Default value for setting "Show Polaroid Gallery in pages" was ignored. 
 
 = 2.1.1 = 
